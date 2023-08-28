@@ -1,4 +1,6 @@
 using BookStore.Admin.Context;
+using BookStore.Admin.Interfaces;
+using BookStore.Admin.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,11 +12,19 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+
+//-----------------------------------------------------------------------------
 // DATABASE CONFIGURATION SERVICE:-
 builder.Services.AddDbContext<AdminContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("AdminDB"));
 });
+
+builder.Services.AddTransient<IAdminRepo , AdminRepo>();
+//-----------------------------------------------------------------------------
+
+
+
 
 var app = builder.Build();
 
