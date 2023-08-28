@@ -51,6 +51,23 @@ namespace BookStore.Book.Controllers
 
 
 
+        // GET BOOK BY ID:-
+        [HttpGet]
+        [Route("GetBookByID")]
+        public IActionResult GetBookByID(long BookID)
+        {
+            var result = bookRepo.GetBookByID(BookID);
+            if (result != null)
+            {
+                return Ok(new { success = true, message = "Book By ID Getting Successful", data = result });
+            }
+            else
+            {
+                return NotFound(new { success = false, message = "Book Not Found.", data = result });
+            }
+        }
+
+
 
 
 
