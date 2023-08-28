@@ -50,5 +50,22 @@ namespace BookStore.User.Controllers
             }
         }
 
+
+        //USER LOGIN:-
+        [HttpPost]
+        [Route("UserLogin")]
+        public IActionResult Login(UserLoginModel model)
+        {
+            var result = userRepo.UserLogin(model);
+            if (result != null)
+            {
+                return Ok(new { success = true, message = "User Login Successful", data = result });
+            }
+            else
+            {
+                return BadRequest(new { success = false, message = "User Login Failed", data = result });
+            }
+        }
+
     }
 }

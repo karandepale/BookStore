@@ -89,7 +89,31 @@ namespace BookStore.User.Services
         }
 
 
-
+        //USER LOGIN:-
+        public UserLoginResult UserLogin(UserLoginModel model)
+        {
+            try
+            {
+                var result = userContext.User.FirstOrDefault
+                    (data => data.Email == model.Email && data.Password == model.Password);
+                if (result != null)
+                {
+                    return new UserLoginResult
+                    {
+                        UserEntity = result,
+                        JwtToken = GenerateJwtToken(result.Email, result.UserID)
+                    };
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
 
     }
 }
