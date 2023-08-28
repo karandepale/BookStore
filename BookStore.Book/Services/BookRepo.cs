@@ -48,5 +48,28 @@ namespace BookStore.Book.Services
 
 
 
+        //Get ALL BOOKS:-
+        public List<BookEntity> GetAllBooks()
+        {
+            try
+            {
+                var result = bookContext.Book.ToList();
+                if (result != null)
+                {
+                    return result;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (System.Exception)
+            {
+                throw;
+            }
+        }
+
+
+
     }
 }
