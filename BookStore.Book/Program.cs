@@ -1,4 +1,6 @@
 using BookStore.Book.Context;
+using BookStore.Book.Interfaces;
+using BookStore.Book.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,6 +16,8 @@ builder.Services.AddDbContext<BookContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("BookDB"));
 });
+
+builder.Services.AddTransient<IBookRepo, BookRepo>();
 
 var app = builder.Build();
 
