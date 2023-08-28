@@ -139,5 +139,31 @@ namespace BookStore.User.Services
             }
         }
 
+
+        // RESET PASSWORD:-
+        public bool ResetPassword(string email, string newPass, string confirmPass)
+        {
+            try
+            {
+                if (newPass == confirmPass)
+                {
+                    var isEmailPresent = userContext.User.FirstOrDefault(user => user.Email == email);
+                    isEmailPresent.Password = confirmPass;
+                    userContext.SaveChanges();
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+            }
+        }
+
+
+
     }
 }

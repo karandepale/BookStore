@@ -1,7 +1,9 @@
 ﻿using BookStore.User.Interfaces;
 using BookStore.User.Model;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace BookStore.User.Controllers
 {
@@ -82,6 +84,26 @@ namespace BookStore.User.Controllers
             else
             {
                 return NotFound(new { success = false, message = "Forgot pass email not send..." });
+            }
+        }
+
+
+
+        // RESET PASSWORD:-
+        [Authorize]
+        [HttpPost]
+        [Route("ResetPass")]
+        public IActionResult ResetPassword(string newPass, string confirmPass)
+        {
+            var email = User.FindFirst(ClaimTypes.Email).Value;
+            var result = userRepo.ResetPassword(email, newPass, confirmPass);
+            if (result != null)
+            {
+                return Ok(new { success = true, message = "Password Changed Successfully", data = result });
+            }
+            else
+            {
+                return NotFound(new { success = false, message = "Password not changed", data = result });
             }
         }
 
