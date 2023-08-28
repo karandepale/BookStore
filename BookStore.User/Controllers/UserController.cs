@@ -16,9 +16,9 @@ namespace BookStore.User.Controllers
         }
 
 
-
+        //USER REGISTRATION:-
         [HttpPost]
-        [Route("UserRegistration")]
+        [Route("User_Registration")]
         public IActionResult Registration(UserRegistrationModel model)
         {
             var result = userRepo.UserRegistration(model);
@@ -29,6 +29,24 @@ namespace BookStore.User.Controllers
             else
             {
                 return BadRequest(new { success = false, message = "User Registration Failed", data = result });
+            }
+        }
+
+
+
+        //GET ALL USERS:-
+        [HttpGet]
+        [Route("GetAll_User")]
+        public IActionResult GetAllUser()
+        {
+            var result = userRepo.GetAllUser();
+            if (result != null)
+            {
+                return Ok(new { success = true, message = "User List Getting Successful", data = result });
+            }
+            else
+            {
+                return NotFound(new { success = false, message = "User List Getting Failed", data = result });
             }
         }
 
