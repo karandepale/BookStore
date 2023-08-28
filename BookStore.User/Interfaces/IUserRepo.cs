@@ -8,5 +8,6 @@ namespace BookStore.User.Interfaces
         public UserEntity UserRegistration(UserRegistrationModel model);
         public List<UserEntity> GetAllUser();
         public UserLoginResult UserLogin(UserLoginModel model);
+        public string ForgotPassword(ForgotPassModel model);
     }
 }
