@@ -33,5 +33,40 @@ namespace BookStore.Admin.Controllers
         }
 
 
+
+        //GET ALL ADMINS:-
+        [HttpGet]
+        [Route("GetAll_Admins")]
+        public IActionResult GetAllAdmin()
+        {
+            var result = adminRepo.GetAllAdmin();
+            if (result != null)
+            {
+                return Ok(new { success = true, message = "Admin List getting Successful", data = result });
+            }
+            else
+            {
+                return BadRequest(new { success = false, message = "Admin List Not getting", data = result });
+            }
+        }
+
+
+        //ADMIN LOGIN:-
+        [HttpPost]
+        [Route("Admin_Login")]
+        public IActionResult Login(AdminLoginModel model)
+        {
+            var result = adminRepo.AdminLogin(model);
+            if (result != null)
+            {
+                return Ok(new { success = true, message = "Admin Login Successful", data = result });
+            }
+            else
+            {
+                return NotFound(new { success = false, message = "Admin Login Failed", data = result });
+
+            }
+        }
+
     }
 }
