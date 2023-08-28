@@ -93,5 +93,39 @@ namespace BookStore.Book.Services
             }
         }
 
+
+
+        //UPDATE BOOK:-
+        public BookEntity UpdateBook(BookEditModel model, long BookID)
+        {
+            try
+            {
+                var bookEntity = bookContext.Book.FirstOrDefault
+                    (data => data.BookID == BookID);
+                if (bookEntity != null)
+                {
+                    bookEntity.BookName = model.BookName;
+                    bookEntity.Description = model.Description;
+                    bookEntity.Author = model.Author;
+                    bookEntity.Quantity = model.Quantity;
+                    bookEntity.DiscountPrice = model.DiscountPrice;
+                    bookEntity.ActualPrice = model.ActualPrice;
+
+                    bookContext.SaveChanges();
+                    return bookEntity;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (System.Exception)
+            {
+                throw;
+            }
+        }
+
+
+
     }
 }
