@@ -127,5 +127,30 @@ namespace BookStore.Book.Services
 
 
 
+        //DELETE BOOK:-
+        public void DeleteBook(long BookID)
+        {
+            try
+            {
+                var result = bookContext.Book.FirstOrDefault
+                    (data => data.BookID == BookID);
+                if (result != null)
+                {
+                    bookContext.Book.Remove(result);
+                    bookContext.SaveChanges();
+                }
+                else
+                {
+                    result = null;
+                }
+
+            }
+            catch (System.Exception)
+            {
+                throw;
+            }
+        }
+
+
     }
 }

@@ -87,6 +87,22 @@ namespace BookStore.Book.Controllers
 
 
 
+        //DELETE BOOK:-
+        [HttpDelete]
+        [Route("DeleteBook")]
+        public IActionResult DeleteBook(long BookID)
+        {
+            try
+            {
+                bookRepo.DeleteBook(BookID);
+                return Ok(new { success = true, message = "Book Deleted Successfully" });
+            }
+            catch (System.Exception)
+            {
+                return NotFound(new { success = false, message = "Book Not Deleted." });
+                throw;
+            }
+        }
 
     }
 }
