@@ -1,7 +1,9 @@
 ﻿using BookStore.Book.Interfaces;
 using BookStore.Book.Model;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Data;
 
 namespace BookStore.Book.Controllers
 {
@@ -16,6 +18,7 @@ namespace BookStore.Book.Controllers
         }
 
         // ADD BOOK:-
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [Route("AddBook")]
         public IActionResult AddBook(BookAddModel model)
