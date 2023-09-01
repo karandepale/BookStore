@@ -73,20 +73,40 @@ namespace BookStore.Admin.Services
 
 
         //GENERATE JWT :-
-        public string GenerateJwtToken(string Email, long AdminID)
+        /* public string GenerateJwtToken(string Email, long AdminID)
+         {
+             var claims = new List<Claim>
+             {
+                 new Claim("AdminID", AdminID.ToString()),
+                 new Claim(ClaimTypes.Email, Email),
+                 new Claim(ClaimTypes.Role,"Admin")
+         };
+             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JwtSettings:SecretKey"]));
+             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+
+             var token = new JwtSecurityToken("JwtSettings:Issuer", "JwtSettings:Audience", claims, DateTime.Now, DateTime.Now.AddHours(1), creds);
+
+             return new JwtSecurityTokenHandler().WriteToken(token);
+         }
+ */
+
+        // JWT TOKEN GENERATE:-
+        public string GenerateJwtToken(string Email, long UserID)
         {
             var claims = new List<Claim>
             {
-                new Claim("AdminID", AdminID.ToString()),
+                new Claim("UserID", UserID.ToString()),
                 new Claim(ClaimTypes.Email, Email),
+                new Claim(ClaimTypes.Role,"Admin")
         };
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JwtSettings:SecretKey"]));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
-            var token = new JwtSecurityToken("JwtSettings:Issuer", "JwtSettings:Audience", claims, DateTime.Now, DateTime.Now.AddHours(1), creds);
+            var token = new JwtSecurityToken(configuration["JwtSettings:Issuer"], configuration["JwtSettings:Audience"], claims, DateTime.Now, DateTime.Now.AddHours(1), creds);
 
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
+
 
 
 
