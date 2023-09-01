@@ -89,6 +89,29 @@ namespace BookStore.User.Services
         }
 
 
+        // GET USER BY ID:-
+        public UserEntity GetUserByID(int userID)
+        {
+            try
+            {
+                var user = userContext.User.FirstOrDefault
+                    (data => data.UserID == userID);
+                if(user != null)
+                {
+                    return user;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+            }
+        }
+
+
         //USER LOGIN:-
         public UserLoginResult UserLogin(UserLoginModel model)
         {
